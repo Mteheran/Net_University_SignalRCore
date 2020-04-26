@@ -4,19 +4,22 @@
     ViewData["Title"] = "Chat";
 }
 
-<div class="container">
-    <div class="row">
-        <label class="col-2">Usuario</label>
-        <input class="col-4" type="text" id="txtUsuario" />
+    <div class="container">
+        <div class="row">
+            <label class="col-2">Usuario</label>
+            <input class="col-4" type="text" id="txtUsuario" />
+        </div>
+        <div class="row">
+            <label class="col-2">Mensaje</label>
+            <input class="col-4" type="text" id="txtMensaje" />
+        </div>
+        <div class="row">
+            <input type="button" id="btnConectar" value="Conectar" />
+        </div>
+        <div class="row">
+            <input type="button" id="btnEnviar" value="Enviar" disabled />
+        </div>
     </div>
-    <div class="row">
-        <label class="col-2">Mensaje</label>
-        <input class="col-4" type="text" id="txtMensaje" />
-    </div>
-    <div class="row">
-        <input type="button" id="btnEnviar" value="Enviar" />
-    </div>
-</div>
 <div class="row">
     <div class="col-12">
         <hr />
