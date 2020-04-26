@@ -1,10 +1,30 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Chat";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row">
+        <label class="col-2">Usuario</label>
+        <input class="col-4" type="text" id="txtUsuario" />
+    </div>
+    <div class="row">
+        <label class="col-2">Mensaje</label>
+        <input class="col-4" type="text" id="txtMensaje" />
+    </div>
+    <div class="row">
+        <input type="button" id="btnEnviar" value="Enviar" />
+    </div>
 </div>
+<div class="row">
+    <div class="col-12">
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <ul id="lstMensajes">
+    </ul>
+</div>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/app/chat/chat.js"></script>
