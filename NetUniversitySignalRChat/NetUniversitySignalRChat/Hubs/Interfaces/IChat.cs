@@ -10,5 +10,7 @@ namespace NetUniversitySignalRChat.Hubs.Interfaces
     {
         Task EnviarMensaje(Mensaje mensaje);
         Task RecibirMensaje(Mensaje mensaje);
+
+        Task Counter();
     }
 }

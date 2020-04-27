@@ -28,6 +28,16 @@ namespace NetUniversitySignalRChat.Hubs
             }
         }
 
+        public async IAsyncEnumerable<int> Counter()
+        {
+            for (int i = 1; i < 1000000; i++)
+            {
+                yield return i;
+
+                await Task.Delay(1000);
+            }
+        }
+
         public override async Task OnConnectedAsync()
         {
             await Clients.Client(Context.ConnectionId).RecibirMensaje(new Mensaje() { Usuario = "Host", Contenido = "Hola Bienvenido al Chat" });

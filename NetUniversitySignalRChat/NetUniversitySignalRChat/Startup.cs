@@ -27,8 +27,6 @@ namespace NetUniversitySignalRChat
             services.AddRazorPages();
             services.AddSignalR(configure=>
             {
-                configure.MaximumReceiveMessageSize = 2;
-
             });
 
             services.AddCors(o => o.AddPolicy("hub", p =>

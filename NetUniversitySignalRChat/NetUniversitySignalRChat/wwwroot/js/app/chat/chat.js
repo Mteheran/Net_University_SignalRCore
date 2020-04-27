@@ -34,6 +34,13 @@ document.getElementById("btnConectar").addEventListener("click", function (event
                 console.error(error);
             });
 
+            conexion.stream("Counter").subscribe(
+                {
+                    next: (item) => { document.getElementById("lblDuracion").innerHTML = item },
+                    complete: (item) => { document.getElementById("lblDuracion").innerHTML = "Se acabó el tiempo" },
+                    error: (error) => { console.error(error) },
+                });
+
         }).catch(function (error) {
             console.error(error);
         });
