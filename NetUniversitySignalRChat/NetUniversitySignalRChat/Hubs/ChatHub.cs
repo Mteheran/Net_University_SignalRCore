@@ -10,18 +10,21 @@ namespace NetUniversitySignalRChat.Hubs
 {
     public class ChatHub : Hub<IChat>
     {
-        public static Dictionary<string, string> lstUsuarios { get; set; } = new Dictionary<string, string>();
+        public static Dictionary<string, (string, string)> lstUsuarios { get; set; } = new Dictionary<string, (string, string)>();
 
         public async Task EnviarMensaje(Mensaje mensaje)
         {
             if ( !string.IsNullOrEmpty(mensaje.Contenido))
             {
-                await Clients.All.RecibirMensaje(mensaje);
+                await Clients.Group(mensaje.Sala).RecibirMensaje(mensaje);
             }
             else if(!string.IsNullOrEmpty(mensaje.Usuario))
             {   
-                lstUsuarios.Add(Context.ConnectionId, mensaje.Usuario);
-                await Clients.AllExcept(Context.ConnectionId).RecibirMensaje(new Mensaje() { Usuario = mensaje.Usuario, Contenido = "Se ha conectado!" });
+                lstUsuarios.Add(Context.ConnectionId, (mensaje.Usuario, mensaje.Sala));
+
+                await Groups.AddToGroupAsync(Context.ConnectionId, mensaje.Sala);
+
+                await Clients.GroupExcept(mensaje.Sala,Context.ConnectionId).RecibirMensaje(new Mensaje() { Usuario = mensaje.Usuario, Contenido = "Se ha conectado!" });
             }
         }
 
@@ -34,7 +37,7 @@ namespace NetUniversitySignalRChat.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await Clients.AllExcept(Context.ConnectionId).RecibirMensaje(new Mensaje() { Usuario = "Host", Contenido = $"{lstUsuarios[Context.ConnectionId]} ha salido del chat" });
+            await Clients.GroupExcept(lstUsuarios[Context.ConnectionId].Item2,Context.ConnectionId).RecibirMensaje(new Mensaje() { Usuario = "Host", Contenido = $"{lstUsuarios[Context.ConnectionId].Item1} ha salido del chat" });
 
             lstUsuarios.Remove(Context.ConnectionId);
 

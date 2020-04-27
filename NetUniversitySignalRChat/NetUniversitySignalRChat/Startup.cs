@@ -25,7 +25,16 @@ namespace NetUniversitySignalRChat
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddSignalR();
+            services.AddSignalR(configure=>
+            {
+                configure.MaximumReceiveMessageSize = 2;
+
+            });
+
+            services.AddCors(o => o.AddPolicy("hub", p =>
+             {
+                 p.AllowAnyOrigin().AllowAnyMethod();
+             }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +61,12 @@ namespace NetUniversitySignalRChat
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapHub<ChatHub>("/chatHub", config=>
+                {
+                    config.ApplicationMaxBufferSize = 2;
+                    config.TransportMaxBufferSize = 2;
+                }
+                );
             });
         }
     }

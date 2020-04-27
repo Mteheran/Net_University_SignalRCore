@@ -19,12 +19,15 @@ document.getElementById("btnConectar").addEventListener("click", function (event
             document.getElementById("lstMensajes").appendChild(li);
             document.getElementById("btnConectar").value = "Desconectar";
             document.getElementById("txtUsuario").disabled = true;
+            document.getElementById("btnEnviar").disabled = false;
 
             var usuario = document.getElementById("txtUsuario").value;
+            var sala = document.getElementById("sala").value;
 
             var objetoMensaje = {
                 usuario: usuario,
-                contenido: ""
+                contenido: "",
+                sala: sala
             }
 
             conexion.invoke("EnviarMensaje", objetoMensaje).catch(function (error) {
@@ -54,10 +57,12 @@ document.getElementById("btnEnviar").addEventListener("click", function (event) 
 
     var usuario = document.getElementById("txtUsuario").value;
     var mensaje = document.getElementById("txtMensaje").value;
+    var sala = document.getElementById("sala").value;
 
     var objetoMensaje = {
         usuario: usuario,
-        contenido: mensaje
+        contenido: mensaje,
+        sala:sala
     }
 
     conexion.invoke("EnviarMensaje", objetoMensaje).catch(function (error) {

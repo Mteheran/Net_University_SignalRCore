@@ -8,5 +8,6 @@ namespace NetUniversitySignalRChatConsole
     {
         public string Usuario { get; set; }
         public string Contenido { get; set; }
+        public string Sala { get; set; }
     }
 }
